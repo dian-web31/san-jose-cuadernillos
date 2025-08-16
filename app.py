@@ -15,14 +15,6 @@ materias_por_sesion = {
     "MEDIA 10 Y 11": [4, 6, 5]
 }
 
-# Función para insertar salto de página
-def insertar_salto_pagina(doc):
-    paragraph = doc.add_paragraph()
-    run = paragraph.add_run()
-    br = OxmlElement('w:br')
-    br.set(qn('w:type'), 'page')
-    run._r.append(br)
-
 # Función para crear documento combinando varios archivos en una sección
 def crear_documento_con_docs(base_path, lista_paths, seccion_num, output_path):
     base_doc = Document(base_path)
@@ -31,8 +23,6 @@ def crear_documento_con_docs(base_path, lista_paths, seccion_num, output_path):
     for i, doc_path in enumerate(lista_paths):
         doc_to_append = Document(doc_path)
         composer.append(doc_to_append)
-        if i != len(lista_paths) - 1:
-            insertar_salto_pagina(composer.doc)
 
     # Añadir texto o encabezado con la sección si quieres:
     composer.doc.add_paragraph(f"Sección {seccion_num}")
